@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* SCU palette */
+  --scu-dark: #0e1728;
+  --scu-accent: #ff9000;
+  --scu-bg: #ffffff;
+  --scu-primary: var(--scu-accent);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+/* Minimal audio player slider */
+.player-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 24px;
+  background: transparent;
+}
+
+.player-range:focus {
+  outline: none;
+}
+
+/* WebKit */
+.player-range::-webkit-slider-runnable-track {
+  height: 6px;
+  background-color: #e5e7eb; /* slate-200 */
+  border-radius: 9999px;
+}
+
+.player-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background-color: #111827; /* slate-900 */
+  border: 2px solid #111827;
+  margin-top: -6px; /* center on 6px track */
+}
+
+/* Firefox */
+.player-range::-moz-range-track {
+  height: 6px;
+  background-color: #e5e7eb; /* slate-200 */
+  border-radius: 9999px;
+}
+
+.player-range::-moz-range-progress {
+  height: 6px;
+  background-color: #e5e7eb; /* keep single-color track */
+  border-radius: 9999px;
+}
+
+.player-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background-color: #111827; /* slate-900 */
+  border: 2px solid #111827;
+}
+
+body {
+  background-color: var(--scu-bg);
+  color: #000000;
+  accent-color: var(--scu-primary);
+  font-family: 'Montserrat', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
