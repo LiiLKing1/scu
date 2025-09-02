@@ -15,7 +15,6 @@ const Aboutp = () => {
 
             {/* Single card (orange variant) */}
             <div className="relative rounded-3xl bg-[#ff9000] p-6 sm:p-8 shadow-xl ring-1 ring-black/10">
-              <div className="absolute -top-4 -left-4 h-16 w-16 rounded-full bg-[#0e1728] shadow-md"></div>
               <h4 className="text-xl font-semibold text-white mt-8">About us:</h4>
               <p className="mt-2 text-sm leading-relaxed text-white/90">
                 The IELTS trend came to Uzbekistan a few years ago. People were spending years in preparation, but is a language all about getting a certificate?
