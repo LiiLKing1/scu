@@ -1,5 +1,6 @@
  import React from 'react'
 import homeImage from '../../assets/home.png'
+import telegramIcon from '../../assets/telegram.png'
 
 const Home = () => {
   return (
@@ -26,10 +27,11 @@ const Home = () => {
               target="_blank"
               rel="noreferrer"
               className="group inline-block"
-              aria-label="Join telegram channel to participate us"
+              aria-label="Join our telegram channel to participate in events"
             >
-              <span className="inline-block rounded-full bg-white text-[#0e1728] px-4 sm:px-8 py-2.5 sm:py-3 font-semibold shadow-md group-hover:bg-white/90 transition text-sm sm:text-base text-center max-w-[90vw] whitespace-normal leading-snug">
-                Join telegram channel to participate us
+              <span className="inline-flex items-center gap-2 sm:gap-3 rounded-full bg-white text-[#0e1728] px-4 sm:px-6 py-2.5 sm:py-3 font-semibold shadow-md group-hover:bg-white/90 transition text-sm sm:text-base text-center max-w-[90vw] whitespace-normal leading-snug">
+                <img src={telegramIcon} alt="Telegram" className="w-5 h-5 sm:w-6 sm:h-6" />
+                Join our telegram channel to participate in events
               </span>
             </a>
           </div>
