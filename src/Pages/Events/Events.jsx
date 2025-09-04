@@ -4,6 +4,7 @@ import Icon1 from '../../assets/1.png'
 import Icon2 from '../../assets/2.png'
 import Icon3 from '../../assets/3.png'
 import Icon4 from '../../assets/4.png'
+import logo from '../../assets/logos.png'
 
 // Panels for each category
 import DebatesPanel from './Debates/Debates'
@@ -295,6 +296,7 @@ const _LegacyEvents = () => {
     <main className="bg-white">
       {/* Title and description */}
       <section className="container mx-auto max-w-7xl px-4 pt-24 pb-6 text-center">
+        <img src={logo} alt="SCU logo" className="mx-auto mb-4 h-20 sm:h-24 md:h-28 w-auto object-contain brightness-0" />
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#460dff]">
           Events
         </h1>
@@ -750,29 +752,30 @@ const SimpleEvents = () => {
   return (
     <main className="bg-white min-h-screen">
       <section className="container mx-auto px-4 pt-28 pb-12">
+        <img src={logo} alt="SCU logo" className="mx-auto mb-4 h-20 sm:h-24 md:h-28 w-auto object-contain brightness-0" />
         <h1 className="text-[#0e1728] text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-center">
           Events
         </h1>
 
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto items-stretch">
           {cards.map((c) => (
             <div
               key={c.title}
-              className="flex items-center justify-between gap-6 rounded-3xl bg-[#0e1728] text-white p-6 sm:p-8 shadow-lg transform-gpu"
+              className="flex items-stretch justify-between gap-6 rounded-3xl bg-[#0e1728] text-white p-6 sm:p-8 shadow-lg transform-gpu h-full min-h-[240px]"
             >
-              <div className="max-w-[60%]">
+              <div className="max-w-[60%] flex flex-col h-full flex-1">
                 <h3 className="text-xl sm:text-2xl font-semibold">{c.title}</h3>
                 <div className="mt-2 text-white/80 text-sm sm:text-base leading-relaxed">
                   {cardDescriptions[c.key]}
                 </div>
                 <button
                   onClick={() => openPanel(c.key)}
-                  className="mt-4 inline-flex items-center rounded-full bg-white text-[#0e1728] px-5 py-2 font-semibold shadow hover:bg-white/90 transition"
+                  className="mt-auto self-start w-fit inline-flex items-center rounded-full bg-white text-[#0e1728] px-3 py-1.5 text-sm font-semibold shadow hover:bg-white/90 transition"
                 >
                   Open
                 </button>
               </div>
-              <img src={c.icon} alt={`${c.title} icon`} className="w-24 sm:w-28 md:w-32 h-auto object-contain select-none brightness-0 invert" />
+              <img src={c.icon} alt={`${c.title} icon`} className="self-start shrink-0 w-24 sm:w-28 md:w-32 h-auto object-contain select-none brightness-0 invert" />
             </div>
           ))}
         </div>

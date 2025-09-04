@@ -29,7 +29,7 @@ const Aboutp = () => {
                 <li><span className="font-semibold">Daily</span> - regular practice and opportunity to build friendships</li>
               </ul>
               <p className="mt-3 text-sm leading-relaxed text-white/90">
-                Having helped over 1500 people so far, we are continuing to grow with a clear vision and boundless enthusiasm
+                Having helped over 1500 people so far, our team of 20 people is continuing to help others with a clear vision and boundless enthusiasm
               </p>
             </div>
           </div>
