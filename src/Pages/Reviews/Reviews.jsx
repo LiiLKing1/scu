@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { db } from '../../firebase'
-import { collection, addDoc, query, where, getDocs, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, query, where, onSnapshot, serverTimestamp } from 'firebase/firestore'
 
 const StarIcon = ({ className = "w-5 h-5" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className} aria-hidden="true">
@@ -21,6 +22,22 @@ const formatDate = (ts) => {
     if (!ts) return ''
     const d = ts?.toDate ? ts.toDate() : new Date(ts)
     return d.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  } catch {
+    return ''
+  }
+}
+
+// Format: YYYY-MM-DD HH:mm (local time)
+const formatYMDHM = (ts) => {
+  try {
+    if (!ts) return ''
+    const d = ts?.toDate ? ts.toDate() : new Date(ts)
+    const yyyy = d.getFullYear()
+    const mm = String(d.getMonth() + 1).padStart(2, '0')
+    const dd = String(d.getDate()).padStart(2, '0')
+    const hh = String(d.getHours()).padStart(2, '0')
+    const min = String(d.getMinutes()).padStart(2, '0')
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}`
   } catch {
     return ''
   }
@@ -54,27 +71,38 @@ const Reviews = () => {
   const [text, setText] = useState('')
   const [message, setMessage] = useState('')
 
-  // Load published reviews from Firestore on mount
+  // Modal + realtime subscription state
+  const [showModal, setShowModal] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [listError, setListError] = useState('')
+
+  // Subscribe to published reviews when modal opens
   useEffect(() => {
-    const fetchPublished = async () => {
-      try {
-        const q = query(collection(db, 'reviews'), where('status', '==', 'published'))
-        const snap = await getDocs(q)
-        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+    if (!showModal) return
+    setLoading(true)
+    setListError('')
+    const q = query(collection(db, 'reviews'), where('status', '==', 'published'))
+    let items = []
+    const unsub = onSnapshot(
+      q,
+      (snap) => {
+        items = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
         items.sort((a, b) => {
           const ta = a.createdAt?.toMillis ? a.createdAt.toMillis() : (a.createdAt ? new Date(a.createdAt).getTime() : 0)
           const tb = b.createdAt?.toMillis ? b.createdAt.toMillis() : (b.createdAt ? new Date(b.createdAt).getTime() : 0)
           return tb - ta
         })
         setPublished(items)
-      } catch (e) {
+        setLoading(false)
+      },
+      (e) => {
         console.error('Failed to load reviews', e)
+        setListError('Failed to load reviews. Please try again.')
+        setLoading(false)
       }
-    }
-    fetchPublished()
-  }, [])
-
-  
+    )
+    return () => unsub()
+  }, [showModal])
 
   const handleSend = async () => {
     const t = text.trim()
@@ -120,11 +148,15 @@ const Reviews = () => {
         {/* Lists and public compose */}
         <div className="mt-6 bg-[#f59e0b] rounded-[48px] p-6 sm:p-8 md:p-10">
           <div className="space-y-6">
-            {published.map((p) => (
-              <div key={p.id}>
-                <ReviewItem author={p.name || p.author} date={formatDate(p.createdAt)} body={p.text} showReport={false} showStars={false} />
-              </div>
-            ))}
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={() => setShowModal(true)}
+                className="inline-flex items-center rounded-full bg-white text-[#0e1728] px-6 py-2 font-semibold shadow hover:bg-white/90"
+              >
+                View published reviews
+              </button>
+            </div>
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h4 className="text-lg font-semibold text-gray-700 mb-3">Leave a comment</h4>
               <textarea
@@ -141,7 +173,57 @@ const Reviews = () => {
           </div>
         </div>
 
-        {/* Admin compose moved into orange container; nothing below */}
+        {/* Reviews modal (portal) */}
+        {showModal && createPortal(
+          <div
+            className="modal modal-open fixed inset-0 z-[99999]"
+            style={{ zIndex: 2147483647 }}
+            onClick={() => setShowModal(false)}
+          >
+            <div
+              className="modal-box relative bg-white rounded-3xl shadow-2xl w-[96vw] max-w-3xl max-h-[85vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => setShowModal(false)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
+              <h3 className="font-bold text-lg text-[#460dff]">Published Reviews</h3>
+
+              {listError && (
+                <p className="mt-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">{listError}</p>
+              )}
+
+              <div className="mt-4">
+                {loading ? (
+                  <div className="flex justify-center py-6">
+                    <span className="loading loading-spinner loading-md text-[#460dff]"></span>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-slate-200">
+                    {published.length === 0 ? (
+                      <p className="text-sm text-slate-600">No reviews yet.</p>
+                    ) : (
+                      published.map((p) => (
+                        <div key={p.id} className="py-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="font-semibold text-gray-800">{p.name || p.author || 'Anonymous'}</p>
+                            <p className="text-xs text-slate-500">{formatYMDHM(p.createdAt)}</p>
+                          </div>
+                          <p className="text-gray-700 whitespace-pre-wrap">{p.text}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
       </div>
     </div>
   )

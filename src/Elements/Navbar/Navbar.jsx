@@ -99,7 +99,7 @@ const Navbar = () => {
           onClick={(e) => handleNavClick(e, 'contact')}
           className={active === 'contact' ? 'rounded-full px-4 py-1.5 bg-[#ff9000] text-[#0e1728] font-semibold transition-colors' : 'hover:text-white/90 transition-colors'}
         >
-          Contact Us
+          Contact us
         </a>
       </li>
     </>
