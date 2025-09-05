@@ -128,7 +128,7 @@ const Reviews = () => {
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h4 className="text-lg font-semibold text-gray-700 mb-3">Leave a comment</h4>
               <textarea
-                className="textarea textarea-bordered w-full min-h-[120px] placeholder-[#F5F5F5] text-blue-600"
+                className="textarea textarea-bordered w-full min-h-[120px] placeholder-[#F5F5F5] text-white"
                 placeholder="Write your comment here..."
                 value={text}
                 onChange={(e)=>setText(e.target.value)}

@@ -296,7 +296,7 @@ const _LegacyEvents = () => {
     <main className="bg-white">
       {/* Title and description */}
       <section className="container mx-auto max-w-7xl px-4 pt-24 pb-6 text-center">
-        <img src={logo} alt="SCU logo" className="mx-auto mb-4 h-20 sm:h-24 md:h-28 w-auto object-contain brightness-0" />
+        <img src={logo} alt="SCU logo" className="mx-auto mb-4 h-44 sm:h-56 md:h-72 w-auto object-contain brightness-0" />
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#460dff]">
           Events
         </h1>
@@ -752,7 +752,7 @@ const SimpleEvents = () => {
   return (
     <main className="bg-white min-h-screen">
       <section className="container mx-auto px-4 pt-28 pb-12">
-        <img src={logo} alt="SCU logo" className="mx-auto mb-4 h-20 sm:h-24 md:h-28 w-auto object-contain brightness-0" />
+        <img src={logo} alt="SCU logo" className="mx-auto mb-4 h-44 sm:h-56 md:h-72 w-auto object-contain brightness-0" />
         <h1 className="text-[#0e1728] text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-center">
           Events
         </h1>
@@ -761,7 +761,7 @@ const SimpleEvents = () => {
           {cards.map((c) => (
             <div
               key={c.title}
-              className="flex items-stretch justify-between gap-6 rounded-3xl bg-[#0e1728] text-white p-6 sm:p-8 shadow-lg transform-gpu h-full min-h-[240px]"
+              className="relative flex items-stretch justify-between gap-6 rounded-3xl bg-[#0e1728] text-white p-6 sm:p-8 shadow-lg transform-gpu h-full min-h-[240px]"
             >
               <div className="max-w-[60%] flex flex-col h-full flex-1">
                 <h3 className="text-xl sm:text-2xl font-semibold">{c.title}</h3>
@@ -770,7 +770,7 @@ const SimpleEvents = () => {
                 </div>
                 <button
                   onClick={() => openPanel(c.key)}
-                  className="mt-auto self-start w-fit inline-flex items-center rounded-full bg-white text-[#0e1728] px-3 py-1.5 text-sm font-semibold shadow hover:bg-white/90 transition"
+                  className="absolute right-6 bottom-6 inline-flex items-center rounded-full bg-white text-[#0e1728] px-3 py-1.5 text-sm font-semibold shadow hover:bg-white/90 transition"
                 >
                   Open
                 </button>

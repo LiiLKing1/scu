@@ -34,7 +34,7 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    const ids = ['home', 'events', 'reviews', 'aboutp', 'admin']
+    const ids = ['home', 'events', 'reviews', 'aboutp', 'contact']
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -95,11 +95,11 @@ const Navbar = () => {
       </li>
       <li>
         <a
-          href="#admin"
-          onClick={(e) => handleNavClick(e, 'admin')}
-          className={active === 'admin' ? 'rounded-full px-4 py-1.5 bg-[#ff9000] text-[#0e1728] font-semibold transition-colors' : 'hover:text-white/90 transition-colors'}
+          href="#contact"
+          onClick={(e) => handleNavClick(e, 'contact')}
+          className={active === 'contact' ? 'rounded-full px-4 py-1.5 bg-[#ff9000] text-[#0e1728] font-semibold transition-colors' : 'hover:text-white/90 transition-colors'}
         >
-          Admin
+          Contact Us
         </a>
       </li>
     </>

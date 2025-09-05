@@ -4,6 +4,7 @@ import Home from './Pages/Home/Home'
 import Events from './Pages/Events/Events'
 import Reviews from './Pages/Reviews/Reviews'
 import Aboutp from './Pages/AboutP/Aboutp'
+import Contact from './Pages/Contact/Contact'
 import AdminGate from './Pages/Admin/AdminGate'
 
 const App = () => {
@@ -29,6 +30,11 @@ const App = () => {
       {/* AboutP section (4th page) */}
       <section id="aboutp" className="bg-white scroll-mt-28">
         <Aboutp />
+      </section>
+
+      {/* Contact section (after About) */}
+      <section id="contact" className="bg-white scroll-mt-28">
+        <Contact />
       </section>
 
       {/* Admin section */}
