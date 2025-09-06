@@ -4,7 +4,7 @@ import LoginCard from '../../../Elements/LoginCard/LoginCard'
 
 import trashIcon from '../../../assets/trash.png'
 import editIcon from '../../../assets/editing.png'
-import { normalizeDriveAudioLink } from '../utils'
+import { normalizeDriveAudioLink, extractDriveFileId } from '../utils'
 import { db } from '../../../firebase'
 import { collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore'
 
@@ -230,7 +230,7 @@ const Chats = () => {
             <span className="loading loading-spinner loading-lg text-white"></span>
           </div>
         ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-h-[60vh] overflow-y-auto pr-1">
           {recs.map((item, i) => (
             <div
               key={item.id || i}
@@ -251,7 +251,12 @@ const Chats = () => {
               </div>
               <div className="mt-4 flex items-center gap-3">
                 <a
-                  href={(normalizeDriveAudioLink((item && (item.fileId || item.src)) || '', { mode: 'preview' }).src) || item?.src || '#'}
+                  href={
+                    (item && item.rawLink && item.rawLink.trim()) ||
+                    (extractDriveFileId(((item && (item.fileId || item.src)) || ''))
+                      ? `https://drive.google.com/file/d/${extractDriveFileId(((item && (item.fileId || item.src)) || ''))}/view`
+                      : (item?.src || '#'))
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center rounded-full bg-white text-[#0e1728] px-5 py-2 font-semibold shadow hover:bg-white/90 transition"

@@ -7,9 +7,7 @@ const Contact = () => {
   return (
     <section className="bg-white">
       <div className="container mx-auto px-4 py-16 sm:py-20">
-        {/* Header band (matches site style: dark navy with white text) */}
         <div className="rounded-[2rem] bg-[#0e1728] text-white p-6 sm:p-8 shadow-xl ring-1 ring-black/5">
-          {/* Top row: title + icons (responsive) */}
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
             <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight">Speaking Community Uzbekistan</h3>
             <div className="inline-flex flex-wrap items-center gap-3 sm:gap-4 bg-white/10 hover:bg-white/15 rounded-full p-2 sm:p-3">
@@ -24,8 +22,6 @@ const Contact = () => {
               </a>
             </div>
           </div>
-
-          {/* Bottom row: two simple columns similar to the reference layout */}
           <div className="mt-8">
             <p className="text-white/80 text-base sm:text-lg">
               Contact us (

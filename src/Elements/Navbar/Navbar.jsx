@@ -115,7 +115,6 @@ const Navbar = () => {
           <ul className="hidden md:flex items-center gap-4 sm:gap-6 text-white text-[15px]">
             {NavItems}
           </ul>
-          {/* Hamburger (mobile) */}
           <button
             type="button"
             aria-label="Open menu"
@@ -127,20 +126,17 @@ const Navbar = () => {
             </svg>
           </button>
         </nav>
-        {/* Mobile drawer overlay + panel */}
         <div
           className={`fixed inset-0 z-[2500] transition-opacity duration-300 ${
             menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
           aria-hidden={!menuOpen}
         >
-          {/* Backdrop */}
           <button
             aria-label="Close menu"
             onClick={() => setMenuOpen(false)}
             className="absolute inset-0 bg-black/30 backdrop-blur-sm"
           />
-          {/* Drawer */}
           <div
             onClick={(e) => e.stopPropagation()}
             className={`absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0e1728] text-white shadow-2xl transform-gpu transition-transform duration-300 ${

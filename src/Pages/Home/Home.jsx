@@ -20,7 +20,6 @@ const Home = () => {
             A place where we empower individuals to enhance their speaking skills, connect with others, and broaden their perspectives—completely free and every day. Join us for engaging debates, dynamic discussions, public speaking sessions, and casual chai chats, all designed to help you practice confidently and grow socially in a supportive online community.
           </p>
 
-          {/* Telegram CTA */}
           <div className="mt-10 flex items-center justify-center">
             <a
               href="https://t.me/speaking_community_uzbekistan"

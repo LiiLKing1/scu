@@ -136,7 +136,7 @@ const Debates = () => {
             <span className="loading loading-spinner loading-lg text-white"></span>
           </div>
         ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-h-[60vh] overflow-y-auto pr-1">
           {recs.map((item, i) => (
             <div
               key={item.id || i}
